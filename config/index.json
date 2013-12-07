@@ -1,0 +1,5 @@
+[
+    {"name":"http-port", "default":"8800"},
+
+    {"name":"rezeption-socket-path", "default":"/tmp/loesung-rezeption"}
+]
