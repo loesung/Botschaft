@@ -1,0 +1,6 @@
+*.swp
+*.swo
+*~
+lib/baum.js
+config/*
+!config/index.json
