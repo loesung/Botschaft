@@ -6,6 +6,7 @@ $.global.set('ipcRouterTable', ipcRouterTable);
 
 var desiredHandlers = [
     'ipc.index.js',
+    'ipc.submit.js',
 
     'html.index.js',
 ];
@@ -24,6 +25,13 @@ module.exports = function(e){
         else
             routerTable = htmlRouterTable;
 
+        String(
+            e.protocol.toUpperCase()
+            + ' ' 
+            + e.method.toUpperCase() 
+            + ': ' + e.request.url
+        ).NOTICE();
+
         for(var filename in routerTable){
             var definition = routerTable[filename];
             var regexp = null;
@@ -31,6 +39,8 @@ module.exports = function(e){
                 regexp = new RegExp(definition);
             else {
                 regexp = new RegExp(definition.rule);
+                if(definition.method)
+                    if(!new RegExp(definition.method).test(e.method)) break;
             };
             var testResult = regexp.exec(e.request.url);
             if(null != testResult){
