@@ -19,18 +19,25 @@ require('./lib/baum.js');
 require('./lib/_.js');
 CONFIG = $.config.createConfig('./config/');
 
-var ui = require('./ui/__init__.js');
+var logic = require('./logic/__init__.js');
 var port = CONFIG.get('http-port');
-var socketPath = CONFIG.get('rezeption-socket-path');
+var rezeptionSocketPath = CONFIG.get('rezeption-socket-path');
+var socketPath = CONFIG.get('socket-path');
 
 var HTTPServer = $.net.HTTP.server(port);
 String('HTTP Server created at port: ' + port).NOTICE();
 
-$.global.set('rezeption', $.net.IPC.client(socketPath));
-String('Connect to Rezeption Server at: ' + socketPath);
+var IPCServer = $.net.IPC.server(socketPath);
+String('IPC Server created at: ' + socketPath).NOTICE();
 
-HTTPServer.on('data', ui);
+$.global.set('rezeption', $.net.IPC.client(rezeptionSocketPath));
+String('Connect to Rezeption Server at: ' + rezeptionSocketPath);
+
+HTTPServer.on('data', logic);
 HTTPServer.start();
+
+IPCServer.on('data', logic);
+IPCServer.start();
 
 $.nodejs.memwatch.on('leak', function(e){
     String('MEMWATCH detected potential memory leak:' + e).WARNING();

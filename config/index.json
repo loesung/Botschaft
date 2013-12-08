@@ -1,5 +1,7 @@
 [
     {"name":"http-port", "default":"8800"},
 
-    {"name":"rezeption-socket-path", "default":"/tmp/loesung-rezeption"}
+    {"name":"rezeption-socket-path", "default":"/tmp/loesung-rezeption"},
+
+    {"name":"socket-path", "default":"/tmp/loesung-botschaft"}
 ]
