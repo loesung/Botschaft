@@ -33,6 +33,8 @@ String('IPC Server created at: ' + socketPath).NOTICE();
 $.global.set('rezeption', $.net.IPC.client(rezeptionSocketPath));
 String('Connect to Rezeption Server at: ' + rezeptionSocketPath);
 
+$.global.set('postoffice', _.postoffice());
+
 HTTPServer.on('data', logic);
 HTTPServer.start();
 
@@ -43,3 +45,5 @@ $.nodejs.memwatch.on('leak', function(e){
     String('MEMWATCH detected potential memory leak:' + e).WARNING();
 });
 
+// load workers
+require('./xmpp/__init__.js');
