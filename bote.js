@@ -20,9 +20,9 @@ require('./lib/_.js');
 CONFIG = $.config.createConfig('./config/');
 
 var logic = require('./logic/__init__.js');
-var port = CONFIG.get('http-port');
-var rezeptionSocketPath = CONFIG.get('rezeption-socket-path');
-var socketPath = CONFIG.get('socket-path');
+var port = CONFIG.get('http-port'),
+    rezeptionSocketPath = CONFIG.get('rezeption-socket-path'),
+    socketPath = CONFIG.get('socket-path');
 
 var HTTPServer = $.net.HTTP.server(port);
 String('HTTP Server created at port: ' + port).NOTICE();
@@ -34,6 +34,7 @@ $.global.set('rezeption', $.net.IPC.client(rezeptionSocketPath));
 String('Connect to Rezeption Server at: ' + rezeptionSocketPath);
 
 $.global.set('postoffice', _.postoffice());
+$.global.set('identity', _.identity());
 
 HTTPServer.on('data', logic);
 HTTPServer.start();
@@ -46,4 +47,4 @@ $.nodejs.memwatch.on('leak', function(e){
 });
 
 // load workers
-require('./xmpp/__init__.js');
+require('./xmpp/__init__.js')();
