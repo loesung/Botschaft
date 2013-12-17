@@ -5,8 +5,10 @@ module.exports = function(myname){
 
     return function(e, matchResult){
         e.response.end([
-            'internet.im.xmpp-CA32-BF47 Using XMPP to reach Bob.',
-            'internet.im.xmpp-B70ADC932E60CA49 Test',
+            'internet.im.xmpp-5E5755757A4B93DE Test',
+            'internet.email.126-5E5755757A4B93DE Send to his mailbox.',
+            'mobile.email.126-5E5755757A4B93DE Dial to his phone.',
+            'satellite.email.yeah-5E5755757A4B93DE Use Iridium System.',
         ].join('\n'));
     };
 };
