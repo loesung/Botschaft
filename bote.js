@@ -47,4 +47,6 @@ $.nodejs.memwatch.on('leak', function(e){
 });
 
 // load workers
-require('./xmpp/__init__.js')();
+var workerList = ['xmpp', 'dummy'];
+for(var i in workerList)
+    require('./workers/' + workerList[i] + '/__init__.js')();
